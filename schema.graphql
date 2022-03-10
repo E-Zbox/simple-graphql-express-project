@@ -1,0 +1,37 @@
+input LinkInput {
+    url: String!
+    description: String!
+}
+input IDInput {
+    _id: ID!
+}
+input FilterInput {
+    skip: Int
+    limit: Int
+}
+type Link {
+    _id: ID!
+    url: String!
+    description: String!
+    user: User
+}
+type User {
+    _id: ID!
+    email: String!
+    links: [Link!]!
+    username: String!
+}
+type Login {
+    token: String!
+}
+type Query {
+    simple: String
+    getLink(input: IDInput!): Link
+    getLinks(input: FilterInput): [Link!]!
+}
+type Mutation {
+    signUpUser(email: String!, password: String!, username: String!): User
+    signInUser(email: String!, password: String!): Login
+    createLink(input: LinkInput!): Link
+    updateLink(input: IDInput!): Link
+}
